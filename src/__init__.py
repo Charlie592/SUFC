@@ -1,5 +1,6 @@
 """
-SUFC Football Analytics Package
+SUFC Data Scientist Assessment package.
 """
 
-__version__ = "0.1.0"
+from . import config, utils
+__all__ = ["config", "utils"]

@@ -48,12 +48,11 @@ pip install -r requirements.txt
 ```bash
 jupyter notebook
 ```
-Navigate to the `notebooks/` directory to access analysis notebooks.
 
 ## Analysis Focus Areas
 
 ### 1. Exploratory Data Analysis (EDA)
-The EDA notebook (`notebooks/01_eda.ipynb`) covers:
+The EDA notebook (`01_anaylsis.ipynb`) covers:
 - **Data Overview**: Dataset structure, features, and summary statistics
 - **Missing Data Analysis**: Identifying and handling missing values
 - **Distribution Analysis**: Understanding the distribution of key metrics (defensive actions, passing accuracy, physical attributes)
@@ -62,7 +61,7 @@ The EDA notebook (`notebooks/01_eda.ipynb`) covers:
 - **Data Quality Assessment**: Identifying outliers and data inconsistencies
 
 ### 2. Right-Back Recruitment Analysis
-The recruitment analysis notebook (`notebooks/02_rightback_recruitment.ipynb`) focuses on:
+The recruitment analysis notebook (`02_rightback_recruitment.ipynb`) focuses on:
 - **Performance Metrics**: Key performance indicators for right-backs
   - Defensive actions (tackles, interceptions, blocks)
   - Passing statistics (accuracy, progressive passes, key passes)
@@ -110,11 +109,6 @@ The recruitment analysis notebook (`notebooks/02_rightback_recruitment.ipynb`) f
 - **scikit-learn**: Machine learning and clustering algorithms
 - **jupyter**: Interactive notebook environment
 
-## Data Sources
-*(Add information about your data sources here)*
 
 ## Contributing
 This is a technical assessment project. For questions or suggestions, please contact the repository owner.
-
-## License
-*(Add license information if applicable)*
