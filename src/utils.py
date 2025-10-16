@@ -63,10 +63,23 @@ def quick_summary(df: pd.DataFrame, n: int = 5) -> None:
     print(df.head(n))
 
 
-# === CORRELATION CHECK ===
-def show_correlations(df: pd.DataFrame, cols: list[str]) -> None:
+# === CORRELATION TO TARGET ===
+def show_correlations(df: pd.DataFrame, cols: list[str], target: str) -> pd.Series:
     """
-    Print the correlation matrix for selected columns.
+    Print and return correlation of selected columns with a target column.
     """
-    print("Correlation matrix:")
-    print(df[cols].corr())
+    use = [c for c in cols if c in df.columns] + [target]
+    corr_matrix = df[use].corr(numeric_only=True)
+    # Get the target column as a Series, drop itself, and sort
+    if target in corr_matrix.columns:
+        corr = corr_matrix[target].drop(target)
+        # If corr is a DataFrame (shouldn't be, but just in case), get the first column as Series
+        if isinstance(corr, pd.DataFrame):
+            corr = corr.iloc[:, 0]
+        corr = corr.sort_values(ascending=True)
+        print(f"Correlation with {target}:")
+        print(corr.to_string())
+        return corr
+    else:
+        print(f"Target column '{target}' not found in correlation matrix.")
+        return pd.Series(dtype=float)
