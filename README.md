@@ -11,7 +11,7 @@ SUFC/
 │   ├── raw/           # Raw data files
 │   └── processed/     # Processed/cleaned data
 ├── notebooks/          # Jupyter notebooks for analysis
-│   ├── 01_eda.ipynb                    # Exploratory Data Analysis
+│   ├── 01_analysis.ipynb                    # Exploratory Data Analysis
 │   └── 02_rightback_recruitment.ipynb  # Right-back recruitment analysis
 ├── src/                # Python source code
 │   ├── __init__.py
