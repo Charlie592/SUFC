@@ -1,4 +1,3 @@
-# features.py
 """
 Feature definitions and utility functions for right-back recruitment analysis.
 """
