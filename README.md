@@ -7,20 +7,19 @@ This repository contains football analytics tools and notebooks focused on explo
 ## Project Structure
 ```
 SUFC/
-├── data/               # Data files (ignored in git)
-│   ├── raw/           # Raw data files
-│   └── processed/     # Processed/cleaned data
-├── notebooks/          # Jupyter notebooks for analysis
-│   ├── 01_eda.ipynb                    # Exploratory Data Analysis
-│   └── 02_rightback_recruitment.ipynb  # Right-back recruitment analysis
-├── src/                # Python source code
+├── data/                 # Data files (ignored in git)
+│   ├── raw/              # Raw data files
+│   └── processed/        # Processed/cleaned data
+├── src/                  # Python source code
 │   ├── __init__.py
-│   ├── data_processing.py  # Data loading and preprocessing
-│   ├── analysis.py         # Analysis functions
-│   └── visualization.py    # Plotting and visualization utilities
-├── outputs/            # Generated outputs (plots, reports, models)
-├── requirements.txt    # Python dependencies
-└── README.md          # This file
+│   ├── utils.py          # Data loading and helpers
+│   ├── features.py       # Pillar feature lists and availability helpers
+│   └── scoring.py        # Per90, z-scoring, pillar/overall, feasibility, flags
+├── outputs/              # Generated outputs (e.g., shortlist.csv, plots)
+├── 01_analysis.ipynb     # Exploratory data analysis
+├── 02_rightback_recruitment.ipynb  # RB recruitment methodology and shortlist
+├── requirements.txt      # Python dependencies
+└── README.md             # This file
 ```
 
 ## Installation
@@ -33,8 +32,8 @@ cd SUFC
 
 2. Create a virtual environment (recommended):
 ```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+python -m venv .venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 ```
 
 3. Install dependencies:
@@ -52,7 +51,7 @@ jupyter notebook
 ## Analysis Focus Areas
 
 ### 1. Exploratory Data Analysis (EDA)
-The EDA notebook (`01_anaylsis.ipynb`) covers:
+The EDA notebook (`01_analysis.ipynb`) covers:
 - **Data Overview**: Dataset structure, features, and summary statistics
 - **Missing Data Analysis**: Identifying and handling missing values
 - **Distribution Analysis**: Understanding the distribution of key metrics (defensive actions, passing accuracy, physical attributes)
@@ -61,53 +60,48 @@ The EDA notebook (`01_anaylsis.ipynb`) covers:
 - **Data Quality Assessment**: Identifying outliers and data inconsistencies
 
 ### 2. Right-Back Recruitment Analysis
-The recruitment analysis notebook (`02_rightback_recruitment.ipynb`) focuses on:
-- **Performance Metrics**: Key performance indicators for right-backs
-  - Defensive actions (tackles, interceptions, blocks)
-  - Passing statistics (accuracy, progressive passes, key passes)
-  - Physical attributes (pace, stamina, work rate)
-  - Attacking contribution (crosses, assists, xA)
-- **Player Profiling**: Clustering and categorizing right-backs by playing style
-  - Defensive-minded fullbacks
-  - Attacking wingbacks
-  - Balanced/complete fullbacks
-- **Comparative Analysis**: Benchmarking candidates against current squad
-- **Age vs. Performance**: Evaluating experience and potential
-- **Market Value Analysis**: Cost-effectiveness and transfer value assessment
-- **Scouting Recommendations**: Data-driven shortlist generation
+The recruitment methodology (`02_rightback_recruitment.ipynb`) ranks RB/RWB candidates for a Wilder-style 3-5-2/5-3-2 via:
+- **Eligibility cohort**: Position in {DR, DMR} and minutes ≥ 1000
+- **Per90 creation**: Only on counting stats; safe divide-by-zero handling
+- **League-aware standardisation**: Z-scores by league for all pillar metrics
+- **Pillars**: Build-up, Creation, Defending (mean of available z-scores)
+- **Overall + bonuses**: Weighted pillars plus small age/minutes bonuses
+- **Feasibility overlay**: Market value, contract, GBE → practicality score
+- **Priority score**: Recruitment_Score × Feasibility_Score
+- **Risk flags**: Heuristics to annotate profiles (e.g., cross volume vs efficiency)
+- **Outputs**: Top-N shortlist CSV at `./outputs/shortlist.csv` and bar chart
+- **Sensitivity**: Re-rank under ±10% weight shifts to check robustness
 
-## Key Metrics for Right-Back Evaluation
+## Key pillars and features
 
-### Defensive Metrics
-- Tackles per 90 minutes
-- Interceptions per 90 minutes
-- Duels won percentage
-- Clearances and blocks
+### Build-up
+- % Passing
+- Progressive Carries per90
+- Ball Prog. by Carrying per90
+- Pass Receipts in Space Completed
+- % Passing Under Pressure
 
-### Passing & Build-up
-- Pass completion rate
-- Progressive passes
-- Passes into final third
-- Cross accuracy
+### Creation
+- Expected Assists per90
+- Open Play Key Passes per90
+- Completed Crosses per90
+- Cross Efficiency
+- xT Passing per90
 
-### Attacking Contribution
-- Expected Assists (xA)
-- Key passes per 90
-- Successful dribbles
-- Shot-creating actions
-
-### Physical & Positional
-- Distance covered per match
-- Sprints per match
-- Positional discipline metrics
+### Defending
+- Successful Tackles per90
+- Interceptions per90
+- Tackles/Was Dribbled
+- % Aerial Wins
 
 ## Dependencies
 - **pandas**: Data manipulation and analysis
 - **numpy**: Numerical computing
-- **matplotlib**: Basic plotting and visualization
-- **seaborn**: Statistical data visualization
-- **scikit-learn**: Machine learning and clustering algorithms
-- **jupyter**: Interactive notebook environment
+- **matplotlib**: Plotting
+- **seaborn**: Statistical visualization (optional)
+- **statsmodels**: Statistical tools (optional)
+- **scikit-learn**: ML utilities (optional)
+- **jupyter**: Notebook environment
 
 
 ## Contributing

@@ -2,5 +2,5 @@
 SUFC Data Scientist Assessment package.
 """
 
-from . import config, utils
-__all__ = ["config", "utils"]
+from . import utils, features, scoring
+__all__ = ["utils", "features", "scoring"]
