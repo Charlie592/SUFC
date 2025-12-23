@@ -1,5 +1,4 @@
 # SUFC - Football Analytics Project
-Sheffield United Technical Assessment
 
 ## Overview
 This repository contains football analytics tools and notebooks focused on exploratory data analysis (EDA) and recruitment analysis, with a particular emphasis on evaluating right-back positions.
